@@ -28,12 +28,15 @@ class InvestopediaScrape:
             self.fh.write('\n')
     
     def scrape_content(self, aplhabet, term):
+        print("Contents")
         r = requests.get('https://www.investopedia.com/terms/{}/{}.asp'.format(aplhabet, term))
         encoding = r.encoding if 'charset' in r.headers.get('content-type', '').lower() else None
         soup = BeautifulSoup(r.content, "html5lib", from_encoding=encoding)
+        print(soup)
         data = soup.find_all('id', {'class':"comp mntl-sc-block-callout-body mntl-text-block"})
+        print(data)
         text = [term.text.strip() for term in data]
         print(text)
-        
+
     def close(self):
         self.fh.close()

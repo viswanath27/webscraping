@@ -21,14 +21,14 @@ if __name__ == '__main__':
     crawler.close()
     # total_end_time = time.time()
     # print(f'Done! total execution time :{total_end_time-total_start_time} secs')
-    db_obj = db_ops()
-    #db_obj.get_table_data('fin_data_definition')
-    data = {}
-    data['Term'] = 'Actuarial'
-    data['definition'] = '''An actuarial life table is a table or spreadsheet that shows the probability of a person at 
-    a certain age dying before their next birthday. It's often used by life insurance companies to calculate the 
-    remaining life expectancy for people at different ages and stages, and the probability of surviving a 
-    particular year of age.'''
-    db_obj.insert_data('fin_data_definition', data)
-    db_obj.get_table_data('fin_data_definition')
+    # db_obj = db_ops()
+    # #db_obj.get_table_data('fin_data_definition')
+    # data = {}
+    # data['Term'] = 'Actuarial'
+    # data['definition'] = '''An actuarial life table is a table or spreadsheet that shows the probability of a person at 
+    # a certain age dying before their next birthday. It's often used by life insurance companies to calculate the 
+    # remaining life expectancy for people at different ages and stages, and the probability of surviving a 
+    # particular year of age.'''
+    # db_obj.insert_data('fin_data_definition', data)
+    # db_obj.get_table_data('fin_data_definition')
 
