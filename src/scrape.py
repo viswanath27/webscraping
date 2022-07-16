@@ -1,3 +1,4 @@
+from urllib import request
 import requests
 from bs4 import BeautifulSoup
 
@@ -25,7 +26,14 @@ class InvestopediaScrape:
             print(text)
             self.fh.write(','.join(text))
             self.fh.write('\n')
-
-
+    
+    def scrape_content(self, aplhabet, term):
+        r = requests.get('https://www.investopedia.com/terms/{}/{}.asp'.format(aplhabet, term))
+        encoding = r.encoding if 'charset' in r.headers.get('content-type', '').lower() else None
+        soup = BeautifulSoup(r.content, "html5lib", from_encoding=encoding)
+        data = soup.find_all('id', {'class':"comp mntl-sc-block-callout-body mntl-text-block"})
+        text = [term.text.strip() for term in data]
+        print(text)
+        
     def close(self):
         self.fh.close()

@@ -5,7 +5,8 @@ from concurrent.futures import ThreadPoolExecutor
 from db_util import db_ops
 
 if __name__ == '__main__':
-    # crawler = InvestopediaScrape()
+    crawler = InvestopediaScrape()
+    crawler.scrape_content('a', 'actuarial-science')
     # total_start_time = time.time()
     # executor = ThreadPoolExecutor(30)
     #
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     #     #end = time.time()
     #     #print(f"Fetching words starting with: {alphabet} has taken :{end-start} secs of time")
     #
-    # crawler.close()
+    crawler.close()
     # total_end_time = time.time()
     # print(f'Done! total execution time :{total_end_time-total_start_time} secs')
     db_obj = db_ops()
