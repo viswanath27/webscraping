@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 class InvestopediaScrape:
     def __init__(self):
         print("Starting...", flush=True)
-        self.fh = open('output.txt', 'w', encoding="utf-8")
+        self.fh = open('../output/output.txt', 'w', encoding="utf-8")
 
     def get_herf(self, alphabet):
         r = requests.get('https://www.investopedia.com/terms/{}/'.format(alphabet))

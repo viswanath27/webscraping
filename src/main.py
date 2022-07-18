@@ -1,9 +1,5 @@
-import string
-import time
-from scrape import InvestopediaScrape
-from concurrent.futures import ThreadPoolExecutor
-from post_process import remove_unrelated_words
-from db_util import db_ops
+from src.scraping.scrape import InvestopediaScrape
+from src.db.db_util import db_ops
 
 if __name__ == '__main__':
     crawler = InvestopediaScrape()
