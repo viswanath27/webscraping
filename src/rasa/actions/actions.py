@@ -3,6 +3,7 @@
 #
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
+import os
 import sqlite3
 # This is a simple example for a custom action which utters "Hello World!"
 
@@ -11,6 +12,9 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
+DATA_BASE_NAME = "fin_data.db"
+TABLE_NAME = "word_definition"
+
 
 class ActionHelloWorld(Action):
 
@@ -18,9 +22,11 @@ class ActionHelloWorld(Action):
         return "definition_response"
 
     def get_definition(self, word_def):
-        con = sqlite3.connect("/Users/csot/rasa_bot/nlp_db.db")
+        current_path = os.getcwd()
+        db_file_path = os.path.join(current_path,"..","db",DATA_BASE_NAME)
+        con = sqlite3.connect(db_file_path)
         cur = con.cursor()
-        sql_query = f"""SELECT nlp_definition from nlp_data WHERE nlp_key="{word_def}";"""
+        sql_query = f"""SELECT {TABLE_NAME} from nlp_data WHERE nlp_key="{word_def}";"""
         print(sql_query)
         result_proxy = cur.execute(sql_query)
         result_set = result_proxy.fetchall()
