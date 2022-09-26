@@ -15,6 +15,7 @@ from rasa_sdk.executor import CollectingDispatcher
 DATA_BASE_NAME = "fin_data.db"
 TABLE_NAME = "word_definition"
 EXTRACT_FIELD = "Word_definition"
+KEY_WORD = "Word"
 
 
 class ActionHelloWorld(Action):
@@ -27,7 +28,7 @@ class ActionHelloWorld(Action):
         db_file_path = os.path.join(current_path,"..","db",DATA_BASE_NAME)
         con = sqlite3.connect(db_file_path)
         cur = con.cursor()
-        sql_query = f"""SELECT {EXTRACT_FIELD} from {TABLE_NAME} WHERE nlp_key="{word_def}";"""
+        sql_query = f"""SELECT {EXTRACT_FIELD} from {TABLE_NAME} WHERE {KEY_WORD}="{word_def}";"""
         print(sql_query)
         result_proxy = cur.execute(sql_query)
         result_set = result_proxy.fetchall()
