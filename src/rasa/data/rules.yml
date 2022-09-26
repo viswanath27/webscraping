@@ -12,6 +12,27 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+# - rule: Query Haystack anytime the user has a direct question for your document base
+#   steps:
+#   - intent: knowledge_question
+#   - action: call_haystack
+
+
+- rule: Finance details
+  steps:
+  - intent: get_finance_details
+  - action: financedomain_response
+
+- rule: Document details
+  steps:
+  - intent: get_doc_details
+  - action: documentdetails_response
+
+# - rule: Query Haystack whenever they send a message with low NLU confidence
+#   steps:
+#     - intent: nlu_fallback
+#     - action: call_haystack
+
 - rule: Define nlp term
   steps:
   - intent: get_definition

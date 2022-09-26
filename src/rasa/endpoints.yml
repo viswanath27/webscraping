@@ -12,11 +12,11 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 action_endpoint:
-  # url: "http://localhost:5055/webhook"
-  # url: "https://ec2-13-115-231-190.ap-northeast-1.compute.amazonaws.com/webhook"
+  url: "http://localhost:5055/webhook"
+  #url: "http://ec2-13-115-231-190.ap-northeast-1.compute.amazonaws.com/webhook"
   #url: "https://13.115.231.190:5055/webhook"
   #ec2-13-115-231-190.ap-northeast-1.compute.amazonaws.com
-  url: "https://c978-13-115-231-190.jp.ngrok.io/webhook"
+  #url: "https://2518-13-115-231-190.jp.ngrok.io/webhook"
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
 # https://rasa.com/docs/rasa/tracker-stores

@@ -90,6 +90,45 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
+- intent: get_doc_details
+  examples: |
+    - What is the [Machine Translation](keys)?
+    - What is the [Vocabulary](keys)?
+    - Can you tell me [Vendor Address](keys)?
+
+- lookup: keys
+  examples: |
+    - Vendor Address
+    - Subtotal
+    - Invoice number
+
+- intent: get_finance_details
+  examples: |
+    - Stock price of [Vocabulary](asserts)?
+    - Current stock price of [Vocabulary](asserts)?
+    - Stock price of [Vocabulary](asserts) for past [](duration)?
+
+
+- lookup: asserts
+  examples: |
+    - NVDA
+    - GOOG
+    - NFLX
+    - AMZN 
+    - AAPL
+    - F
+
+# - intent: knowledge_question
+#   examples: |
+#     - Can you look this up: what is ?
+#     - Look this up: what is?
+#     - Can you check: what is?
+#     - please check: What is ?
+#     - Can you look this up: where is ?
+#     - Look this up: where is?
+#     - Can you check: where is?
+#     - please check: where is ?
+
 - intent: get_definition
   examples: |
     - Define [Vocabulary](word_def)?

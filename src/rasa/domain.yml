@@ -9,8 +9,14 @@ intents:
   - mood_unhappy
   - bot_challenge
   - get_definition
+  # - knowledge_question
+  - get_doc_details
+  - get_finance_details
+
 entities:
   - word_def
+  - keys
+  - asserts
 
 responses:
   utter_greet:
@@ -34,7 +40,9 @@ responses:
 
 actions:
   - definition_response
-
+  # - call_haystack
+  - documentdetails_response
+  - financedomain_response
 
 session_config:
   session_expiration_time: 60
