@@ -17,6 +17,10 @@ rules:
 #   - intent: knowledge_question
 #   - action: call_haystack
 
+- rule: Service now actions
+  steps:
+  - intent: get_snow_actions
+  - action: snow_actions
 
 - rule: Finance details
   steps:

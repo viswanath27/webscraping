@@ -109,6 +109,40 @@ nlu:
     - Stock price of [Vocabulary](asserts) for past [](duration)?
 
 
+- intent: docs
+  examples: |
+    - I want to read the [docs]{"entity": "content_type"}
+    - [Documentation]{"entity": "content_type"}
+    - read the [blogs]{"entity": "content_type"}
+    - read [documentation]{"entity": "content_type"}
+
+- intent: video
+  examples: |
+    - I want to read the [video]{"entity": "content_type"}
+    - [Video content]{"entity": "content_type"}
+    - watch the [video]{"entity": "content_type"}
+    - view [video]{"entity": "content_type"}
+
+
+- intent: get_snow_actions
+  examples: |
+    - Create Service now incident with short description [Machine](sdec) and description [Machine](dec)
+    - Update incident [Machine](inc) with short description [Machine](sdec) and description [Machine](dec)
+    - Update incident [Machine](inc) with short description [Machine](sdec)
+    - Update incident [Machine](inc) with description [Machine](dec)
+    - Delete incident [Machine](inc)
+- lookup: sdec
+  examples: |
+    - Subtotal
+- lookup: dec
+  examples: |
+    - Subtotal
+- lookup: inc
+  examples: |
+    - INC00001
+
+
+
 - lookup: asserts
   examples: |
     - NVDA

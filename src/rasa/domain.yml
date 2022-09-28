@@ -12,11 +12,24 @@ intents:
   # - knowledge_question
   - get_doc_details
   - get_finance_details
+  - get_snow_actions
+  - docs
+  - video
 
 entities:
   - word_def
   - keys
   - asserts
+  - sdec
+  - dec
+  - inc
+  - content_type
+
+slots:
+  content_type:
+    type: text
+    mappings: 
+    - type: custom
 
 responses:
   utter_greet:
@@ -38,11 +51,20 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_blogs:
+  - text: Here is the [documentation link](https://www.google.com) for you to learn everything from scratch
+    image: "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg"
+
+  utter_video:
+  - text: Here is the [Video Content](https://www.youtube.com) for you to learn everything from scratch
+
 actions:
   - definition_response
   # - call_haystack
   - documentdetails_response
   - financedomain_response
+  - snow_actions
+  - action_service
 
 session_config:
   session_expiration_time: 60
