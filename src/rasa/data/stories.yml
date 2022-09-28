@@ -17,6 +17,10 @@ stories:
       - content_type: "Blogs"
   - action: utter_blogs
 
+- story: carousel
+  steps:
+  - intent: bot_work
+  - action: action_carousel
 
 
 

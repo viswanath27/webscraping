@@ -15,6 +15,8 @@ intents:
   - get_snow_actions
   - docs
   - video
+  - summarize_text
+  - bot_work
 
 entities:
   - word_def
@@ -65,7 +67,8 @@ actions:
   - financedomain_response
   - snow_actions
   - action_service
-
+  - summarization
+  - action_carousel
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

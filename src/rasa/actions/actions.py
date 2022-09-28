@@ -9,12 +9,19 @@ import requests
 import yfinance as yf
 import pysnow
 from textwrap import indent
+import transformers
+from transformers import BartTokenizer, BartForConditionalGeneration
+
 # This is a simple example for a custom action which utters "Hello World!"
 
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+
+model_name = 'sshleifer/distilbart-cnn-12-6'
+tokenizer = BartTokenizer.from_pretrained(model_name)
+model = BartForConditionalGeneration.from_pretrained(model_name)
 
 DATA_BASE_NAME = "fin_data.db"
 TABLE_NAME = "word_definition"
@@ -272,4 +279,82 @@ class ActionHelloWorld(Action):
             dispatcher.utter_message(text=word_definition)
         else:
             dispatcher.utter_message(text="Could not get the word definition")
+        return []
+
+class Summarization(Action):
+
+    def name(self) -> Text:
+        return "summarization"
+
+    def summarize(self, inp):
+        inp = inp.replace('\n','')
+        inp = tokenizer.encode(inp, return_tensors='pt', max_length=1024, truncation=True)
+        summary_ids = model.generate(inp, num_beams=2, min_length=50, max_length=120, early_stopping=True)
+        summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+        return summary
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("This is executing run function")
+        #print("Here for stock price")
+        #asserts = next(tracker.get_latest_entity_values("asserts"), None)
+        input_text = tracker.latest_message["text"]
+        #print(f"NLP word definition:{asserts}")
+
+        if not input_text:
+            msg = f"Could not get required details"
+            dispatcher.utter_message(text=msg)
+            return []
+        summarized_text = self.summarize(input_text)
+
+        
+        if summarized_text:
+            dispatcher.utter_message(text=str(summarized_text))
+        else:
+            dispatcher.utter_message(text="Could not get summarized text")
+        return []
+
+class ActionCarousel(Action):
+
+    def name(self) -> Text:
+        return "action_carousel"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print('came to action carousel')
+        message = {
+            "type" : "template",
+            "payload" : {
+                "template_type" : "generic",
+                "elements" : [
+                    {
+                        "title" : "Carousel 1",
+                        "subtitle" : "10",
+                        "image_url" : "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg",
+                        "buttons" : [
+                            {
+                            "title" : "Hi",
+                            "payload" : "Hi,",
+                            "type" : "postback"
+                            }
+                        ]
+                    },
+                    {
+                        "title" : "Carousel 2",
+                        "subtitle" : "12",
+                        "image_url" : "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg",
+                        "buttons" : [
+                            {
+                            "title" : "Hello",
+                            "url" : "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg",
+                            "type" : "web_url"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        dispatcher.utter_message(attachment=message)
         return []

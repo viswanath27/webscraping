@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
-    <!-- <img src="{{url_for('static', filename='images/7.png')}}" alt="" align="middle" style="width:100%"> -->
+<!-- <div>
     <video width="800" autoplay loop muted plays-inline id="myVideo">
-      <!-- <video width="800" autoplay loop muted plays-inline> -->
         <source src= "{{url_for('static', filename='images/dodo_features_updated.mp4')}}" type="video/mp4">
-  
-        <!-- <source src="mov_bbb.ogg" type="video/ogg"> -->
-        Your browser does not support HTML video.
       </video>
-</div>
+</div> -->
+<style>
+  body  {
+    background-image:url("{{url_for('static', filename='images/1.png')}}");
+  }
+  </style>
 {% endblock content %}
 

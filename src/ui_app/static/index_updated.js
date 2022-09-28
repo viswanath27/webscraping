@@ -23762,7 +23762,30 @@
 				height: 20,
 				className: "rw-upload",
 				onClick: function(e) {
-					//todo on click on upload icon
+					let input = document.createElement('input');
+					input.type = 'file';
+					input.onchange = _ => {
+						// you can use this method to get file and perform respective operations
+								let files =   Array.from(input.files);
+								console.log(files);
+								var myArray = [];
+								var file = {};
+								for(var i = 0; i < files.length; i++){
+									//console.log(files[i].name);
+									file = {
+										'lastMod'    : files[i].lastModified,
+										'lastModDate': files[i].lastModifiedDate,
+										'name'       : files[i].name,
+										'size'       : files[i].size,
+										'type'		 : files[i].type,
+									} 
+									//add the file obj to your array
+									myArray.push(file)
+								  }
+								localStorage.setItem('files',JSON.stringify(myArray));
+								console.log("file saved");
+							};
+					input.click();
 				}
 			}), o.a.createElement("img", {
 				src: "https://img.icons8.com/android/344/microphone.png",
