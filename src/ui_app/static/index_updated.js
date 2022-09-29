@@ -23758,9 +23758,10 @@
 				autoFocus: !0,
 				autoComplete: "off"
 			}), o.a.createElement("img", {
-				src: "https://img.icons8.com/material-sharp/452/upload--v1.png",
+				src: "/static/images/attachment.png",
 				height: 20,
 				className: "rw-upload",
+				style: {paddingLeft: 10, paddingRight: 10},
 				onClick: function(e) {
 					let input = document.createElement('input');
 					input.type = 'file';
@@ -23768,37 +23769,50 @@
 						// you can use this method to get file and perform respective operations
 								let files =   Array.from(input.files);
 								console.log(files);
-								var myArray = [];
-								var file = {};
-								for(var i = 0; i < files.length; i++){
-									//console.log(files[i].name);
-									file = {
-										'lastMod'    : files[i].lastModified,
-										'lastModDate': files[i].lastModifiedDate,
-										'name'       : files[i].name,
-										'size'       : files[i].size,
-										'type'		 : files[i].type,
-									} 
-									//add the file obj to your array
-									myArray.push(file)
-								  }
-								localStorage.setItem('files',JSON.stringify(myArray));
+								let formData = new FormData();
+									files.forEach((file) => {
+  									formData.append("file", file);
+								});
+								fs.writeFile("./uploads/image.png", file[0].buffer, (err) => {
+									console.error(error)
+								})
 								console.log("file saved");
 							};
 					input.click();
 				}
-			}), o.a.createElement("img", {
+			}),o.a.createElement("img", {
+				src: "/static/images/mic_wave.gif",
+				height: 20,
+				className: "rw-listening",
+				style: {display: 'none'}
+			}),
+			 o.a.createElement("img", {
 				src: "https://img.icons8.com/android/344/microphone.png",
 				height: 20,
 				className: "rw-mic",
+				style: {paddingRight: 5},
 				onClick: function(e) {
 					var text = document.getElementsByName("message");
 					var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
                     var recognition = new SpeechRecognition();
 					console.log("recognition: "+ recognition);
+
+					var micIcon = document.getElementsByClassName('rw-mic');
+					var sendIcon = document.getElementsByClassName('rw-send');
+					
+					micIcon[0].style.display = 'none';
+					var listeningIcon = document.getElementsByClassName('rw-listening');
+					listeningIcon[0].style.display = 'inline';
 					
 					recognition.onspeechend = function() {
                         recognition.stop();
+						listeningIcon[0].style.display = 'none';
+						micIcon[0].style.display = 'inline';
+						sendIcon[0].disabled = false;
+						setTimeout(function(){
+							sendIcon[0].click();
+						}, 1000)
+					
                     };
 
 					recognition.onresult = function(event) {

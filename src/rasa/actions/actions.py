@@ -30,7 +30,7 @@ KEY_WORD = "Word"
 
 from docquery import document, pipeline
 p = pipeline('document-question-answering')
-doc = document.load_document("/Users/csot/webscraping/src/question_answering/invoice-pwd.jpeg")
+doc = document.load_document("/Users/csot/webscraping/src/question_answering/invoice.png")
 
 class ServiceNowActions(Action):
 
@@ -146,31 +146,7 @@ class ServiceNowActions(Action):
         return []
 
 
-# class ActionHaystack(Action):
 
-#     def name(self) -> Text:
-#         return "call_haystack"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-#         url = "http://localhost:8000/query"
-#         payload = {"query": str(tracker.latest_message["text"])}
-#         headers = {
-#             'Content-Type': 'application/json',
-#             'accept' : 'application/json'
-#         }
-#         response = requests.request("POST", url, headers=headers, json=payload).json()
-
-#         if response["answers"]:
-#             answer = response["answers"][0]["answer"]
-#         else:
-#             answer = "No Answer Found!"
-#         print(f"answer:{answer}")
-#         dispatcher.utter_message(text=answer)
-
-#         return []
 
 class DocumentDetails(Action):
 
@@ -181,7 +157,7 @@ class DocumentDetails(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("This is executing run function")
-        # doc_key = next(tracker.get_latest_entity_values("keys"), None)
+        doc_key = next(tracker.get_latest_entity_values("keys"), None)
         doc_question = tracker.latest_message["text"]
         print(doc_question)
         if not doc_question:
@@ -194,7 +170,10 @@ class DocumentDetails(Action):
         print('information extracted from the document : ', answer)
 
         if answer:
-            dispatcher.utter_message(text=str(answer))
+            if doc_key:
+                dispatcher.utter_message(text=str(doc_key)+ ' is '+str(answer))
+            else:
+                dispatcher.utter_message(str(answer))
         else:
             dispatcher.utter_message(text="Could not get details from the document")
         return []
@@ -216,30 +195,30 @@ class FinanceDomain(Action):
             msg = f"Could not get required details"
             dispatcher.utter_message(text=msg)
             return []
-        data = yf.Ticker(asserts)
+        data = yf.Ticker(asserts.upper())
         current_price = data.info['currentPrice']
         #print(data.info['currentPrice'])
 
         if current_price:
-            dispatcher.utter_message(text=str(current_price))
+            dispatcher.utter_message(text='Current price of '+ asserts +' is '+str(current_price))
         else:
             dispatcher.utter_message(text="Could not get current price ")
         return []
 
 
-class ActionService(Action):
-    def name(self) -> Text:
-        return "action_service"
+# class ActionService(Action):
+#     def name(self) -> Text:
+#         return "action_service"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        buttons= [
-            {"payload":'/docs{"content_type":"blogs"}',"title":"Documenation"},
-            {"payload":'/video{"content_type":"video"}',"title":"Video content"}
-        ]
-        dispatcher.utter_message(text="How would you like to learn with?", buttons=buttons)
-        return []
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#         buttons= [
+#             {"payload":'/docs{"content_type":"blogs"}',"title":"Documenation"},
+#             {"payload":'/video{"content_type":"video"}',"title":"Video content"}
+#         ]
+#         dispatcher.utter_message(text="How would you like to learn with?", buttons=buttons)
+#         return []
 
 class ActionHelloWorld(Action):
 
@@ -251,7 +230,7 @@ class ActionHelloWorld(Action):
         db_file_path = os.path.join(current_path,"..","db",DATA_BASE_NAME)
         con = sqlite3.connect(db_file_path)
         cur = con.cursor()
-        sql_query = f"""SELECT {EXTRACT_FIELD} from {TABLE_NAME} WHERE {KEY_WORD}="{word_def}";"""
+        sql_query = f"""SELECT {EXTRACT_FIELD} from {TABLE_NAME} WHERE UPPER({KEY_WORD}) LIKE UPPER("{word_def}");"""
         print(sql_query)
         result_proxy = cur.execute(sql_query)
         result_set = result_proxy.fetchall()
@@ -330,31 +309,81 @@ class ActionCarousel(Action):
                 "template_type" : "generic",
                 "elements" : [
                     {
-                        "title" : "Carousel 1",
-                        "subtitle" : "10",
-                        "image_url" : "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg",
+                        "title" : "Finance Q&A",
+                        "subtitle" : "Service 1",
+                        "image_url" : "https://lh4.googleusercontent.com/ejtOj2bNy0vgoRimwNAd3P50jzo_cuwQfgo7ay68NABYpfFPKgJBUH0pqByfwzvkhqg=w2400",
                         "buttons" : [
                             {
-                            "title" : "Hi",
-                            "payload" : "Hi,",
+                            "title" : "Ask question",
+                            "payload" : "get_definition",
                             "type" : "postback"
                             }
                         ]
                     },
                     {
-                        "title" : "Carousel 2",
-                        "subtitle" : "12",
-                        "image_url" : "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg",
+                        "title" : "Summarization",
+                        "subtitle" : "Service 2",
+                        "image_url" : "https://lh5.googleusercontent.com/qBi-XBzUXWT4uEOnnX97HgvtcLmROlc38icwhICcrj79rz3utuz29tR8RLWkU-1p7X8=w2400",
                         "buttons" : [
                             {
-                            "title" : "Hello",
-                            "url" : "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg",
-                            "type" : "web_url"
+                            "title" : "Summarize",
+                            "payload" : "get_summarize",
+                            "type" : "postback"
+                            }
+                        ]
+                    },
+                    {
+                        "title" : "Service Now ticketing",
+                        "subtitle" : "Service 3",
+                        "image_url" : "https://lh6.googleusercontent.com/4qeSfw5pb2B6VKmY4iARnLD-p6gHktzeAUTSY_kgfrdnktYt6l0enKoifV_7R2UuyXM=w2400",
+                        "buttons" : [
+                            {
+                            "title" : "Raise a ticket",
+                            "payload" : "get_snow",
+                            "type" : "postback"
+                            }
+                        ]
+                    },
+                    {
+                        "title" : "Document extraction",
+                        "subtitle" : "Service 4",
+                        "image_url" : "https://lh6.googleusercontent.com/1N_yMztdf--ueR8xtH-OzHLHrCEt0qFZfrYirpujv3PhsugqXcd2EPIKZ5u2tN3wEqQ=w2400",
+                        "buttons" : [
+                            {
+                            "title" : "Extract",
+                            "payload" : "get_doc_det",
+                            "type" : "postback"
+                            }
+                        ]
+                    },
+                    {
+                        "title" : "Stocks Market",
+                        "subtitle" : "Service 4",
+                        "image_url" : "https://lh6.googleusercontent.com/ENifr3AaHm2py1xsLqS069BxH-zAWjRQNcm-AqpoVtOfPpUEMPgHc7qpG7KAv-PyGIA=w2400",
+                        "buttons" : [
+                            {
+                            "title" : "Get stock details",
+                            "payload" : "get_finance_det",
+                            "type" : "postback"
+                            }
+                        ]
+                    },
+                    {
+                        "title" : "Courses Recomendation",
+                        "subtitle" : "Service 4",
+                        "image_url" : "https://lh5.googleusercontent.com/qBi-XBzUXWT4uEOnnX97HgvtcLmROlc38icwhICcrj79rz3utuz29tR8RLWkU-1p7X8=w2400",
+                        "buttons" : [
+                            {
+                            "title" : "Recomend me courses",
+                            "payload" : "get_courses_rec",
+                            "type" : "postback"
                             }
                         ]
                     }
                 ]
             }
         }
+        dispatcher.utter_message(text="Below are the services which I can help you with")
         dispatcher.utter_message(attachment=message)
+        
         return []

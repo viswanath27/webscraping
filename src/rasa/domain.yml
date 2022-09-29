@@ -17,6 +17,12 @@ intents:
   - video
   - summarize_text
   - bot_work
+  - definition
+  - summarize
+  - snow_ticket
+  - doc_det
+  - courses_rec
+  - finance_det
 
 entities:
   - word_def
@@ -32,6 +38,19 @@ slots:
     type: text
     mappings: 
     - type: custom
+  # carousel_type:
+  #   type: text
+  #   mappings:
+  #   - type: custom
+    # type: categorical
+    # values:
+    #   - doc_analysis
+    #   - definitions
+    #   - snow_tickets
+    #   - summarize
+    #   - course_recomendation
+    #   - stock_analysis
+    # influence_conversation:  false
 
 responses:
   utter_greet:
@@ -53,6 +72,25 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_ask_definition:
+  - text: "Sure go on, ask any finance domain definition. example: 'Define Dividend'"
+
+  utter_ask_summarize:
+  - text: "Not a tough task for me, Please enter any text to summarize"
+
+  utter_ask_service_now:
+  - text: "Definitely, give me details for description and short description I will create for you"
+
+  utter_ask_document_extract:
+  - text: "I have analyzed whole document, Ask me any question"
+
+  utter_ask_stock_markets:
+  - text: "I have vast knowledge, Ask me price of any stocks. example: 'Stock price of GOOG'"
+
+  utter_ask_courses_recomend:
+  - text: "what do you want to learn"
+
+
   utter_blogs:
   - text: Here is the [documentation link](https://www.google.com) for you to learn everything from scratch
     image: "https://as2.ftcdn.net/v2/jpg/05/18/97/27/1000_F_518972795_ITA7JBzGRPXTo6AWoMwaG21vfT3A62ak.jpg"
@@ -66,7 +104,7 @@ actions:
   - documentdetails_response
   - financedomain_response
   - snow_actions
-  - action_service
+  # - action_service
   - summarization
   - action_carousel
 session_config:

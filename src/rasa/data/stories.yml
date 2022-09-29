@@ -6,7 +6,49 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - action: action_service
+#  - action: action_service
+
+- story: definitions
+  steps:
+  - intent: definition
+  - action: utter_ask_definition
+  - intent: get_definition
+  - action: definition_response
+
+- story: summarizations
+  steps:
+  - intent: summarize
+  - action: utter_ask_summarize
+  - intent: summarize_text
+  - action: summarization
+
+- story: ticketing
+  steps:
+  - intent: snow_ticket
+  - action: utter_ask_service_now
+  - intent: get_snow_actions
+  - action: snow_actions
+
+- story: doc_details
+  steps:
+  - intent: doc_det
+  - action: utter_ask_document_extract
+  - intent: get_doc_details
+  - action: documentdetails_response
+
+- story: finance_details
+  steps:
+  - intent: finance_det
+  - action: utter_ask_stock_markets
+  - intent: get_finance_details
+  - action: financedomain_response
+
+- story: courses_recomendation
+  steps:
+  - intent: courses_rec
+  - action: utter_ask_courses_recomend
+
+
 
 - story: docs path
   steps:
@@ -21,8 +63,6 @@ stories:
   steps:
   - intent: bot_work
   - action: action_carousel
-
-
 
 - story: video path
   steps:

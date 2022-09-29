@@ -97,6 +97,30 @@ nlu:
     - how can you help me with?
     - what are your capabilities?
 
+- intent: definition
+  examples: |
+    - get_definition
+
+- intent: summarize
+  examples: |
+    - get_summarize
+
+- intent: snow_ticket
+  examples: |
+    - get_snow
+
+- intent: doc_det
+  examples: |
+    - get_doc_det
+
+- intent: finance_det
+  examples: |
+    - get_finance_det
+
+- intent: courses_rec
+  examples: |
+    - get_courses_rec
+
 
 - intent: bot_challenge
   examples: |
@@ -107,15 +131,23 @@ nlu:
 
 - intent: get_doc_details
   examples: |
-    - What is the [Machine Translation](keys)?
-    - What is the [Vocabulary](keys)?
-    - Can you tell me [Vendor Address](keys)?
+    - Can you extract [Vendor Address](keys)?
+    - Extract [Vendor Address](keys)?
+    - Please extract [Vendor Address](keys)?
+    - [Vendor Address](keys)?
 
 - lookup: keys
   examples: |
     - Vendor Address
     - Subtotal
-    - Invoice number
+    - Invoice Date
+    - ABA number
+    - invoice date
+    - Due date
+    - Swift number
+    - Bill to
+    - bill to
+
 
 - intent: get_finance_details
   examples: |
@@ -149,21 +181,25 @@ nlu:
 - lookup: sdec
   examples: |
     - Subtotal
+    - VPN issue
+    - Hardware issue
 - lookup: dec
   examples: |
-    - Subtotal
+    - Subtotal has an issue with the
+    - VPN is not connected due to error
+    - Hardware is not accessble
 - lookup: inc
   examples: |
     - INC00001
-
-
+    - INC000001
+    - INC2330001
 
 - lookup: asserts
   examples: |
     - NVDA
     - GOOG
     - NFLX
-    - AMZN 
+    - AMZN
     - AAPL
     - F
 
