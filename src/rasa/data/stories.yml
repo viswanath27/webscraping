@@ -47,7 +47,8 @@ stories:
   steps:
   - intent: courses_rec
   - action: utter_ask_courses_recomend
-
+  - intent: get_courses_recommendation
+  - action: courses_recommendation
 
 
 - story: docs path

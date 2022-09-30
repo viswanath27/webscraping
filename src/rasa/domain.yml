@@ -23,6 +23,7 @@ intents:
   - doc_det
   - courses_rec
   - finance_det
+  - get_courses_recommendation
 
 entities:
   - word_def
@@ -32,6 +33,7 @@ entities:
   - dec
   - inc
   - content_type
+  - domain
 
 slots:
   content_type:
@@ -79,13 +81,16 @@ responses:
   - text: "Not a tough task for me, Please enter any text to summarize"
 
   utter_ask_service_now:
-  - text: "Definitely, give me details for description and short description I will create for you"
+  - text: "Definitely, I can help you with three tasks\
+           1.Create, example: Create Service now incident with short description <> and description <>,\
+           2.Update, example:Update incident <> with short description <> and description <>.\
+           3.Delete, example:Delete incident <>."
 
   utter_ask_document_extract:
   - text: "I have analyzed whole document, Ask me any question"
 
   utter_ask_stock_markets:
-  - text: "I have vast knowledge, Ask me price of any stocks. example: 'Stock price of GOOG'"
+  - text: "I have vast knowledge, Ask me price or trend of any stocks. example: 'Stock price of GOOG' or 'Can you analyze trend of GOOG?'"
 
   utter_ask_courses_recomend:
   - text: "what do you want to learn"
@@ -107,6 +112,7 @@ actions:
   # - action_service
   - summarization
   - action_carousel
+  - courses_recommendation
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

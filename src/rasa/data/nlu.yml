@@ -121,6 +121,20 @@ nlu:
   examples: |
     - get_courses_rec
 
+- intent: get_courses_recommendation
+  examples: |
+    - recommend me courses for [Vocabulary](domain)?
+    - top courses in [Vocabulary](domain)?
+    - how can I expertize in [Vocabulary](domain)?
+    - I want to learn [Vocabulary](domain)?
+
+- lookup: domain
+  examples: |
+    - NLP
+    - Blockchain
+    - Finance
+    - Business Analytics
+    - Statistics
 
 - intent: bot_challenge
   examples: |
@@ -153,46 +167,9 @@ nlu:
   examples: |
     - Stock price of [Vocabulary](asserts)?
     - Current stock price of [Vocabulary](asserts)?
-    - Stock price of [Vocabulary](asserts) for past [](duration)?
-
-
-- intent: docs
-  examples: |
-    - I want to read the [docs]{"entity": "content_type"}
-    - [Documentation]{"entity": "content_type"}
-    - read the [blogs]{"entity": "content_type"}
-    - read [documentation]{"entity": "content_type"}
-
-- intent: video
-  examples: |
-    - I want to read the [video]{"entity": "content_type"}
-    - [Video content]{"entity": "content_type"}
-    - watch the [video]{"entity": "content_type"}
-    - view [video]{"entity": "content_type"}
-
-
-- intent: get_snow_actions
-  examples: |
-    - Create Service now incident with short description [Machine](sdec) and description [Machine](dec)
-    - Update incident [Machine](inc) with short description [Machine](sdec) and description [Machine](dec)
-    - Update incident [Machine](inc) with short description [Machine](sdec)
-    - Update incident [Machine](inc) with description [Machine](dec)
-    - Delete incident [Machine](inc)
-- lookup: sdec
-  examples: |
-    - Subtotal
-    - VPN issue
-    - Hardware issue
-- lookup: dec
-  examples: |
-    - Subtotal has an issue with the
-    - VPN is not connected due to error
-    - Hardware is not accessble
-- lookup: inc
-  examples: |
-    - INC00001
-    - INC000001
-    - INC2330001
+    - Get current trend of [Vocabulary](asserts)?
+    - Current trend of [Vocabulary](asserts)?
+    - Can you analyze trend of [Vocabulary](asserts)?
 
 - lookup: asserts
   examples: |
@@ -276,6 +253,7 @@ nlu:
     - VIXM
     - GSUS
     - NULV
+    - STT
     - ICF
     - SHYD
     - ESML
@@ -779,6 +757,62 @@ nlu:
     - XVOL
     - YDEC
     - YMAR
+
+- intent: docs
+  examples: |
+    - I want to read the [docs]{"entity": "content_type"}
+    - [Documentation]{"entity": "content_type"}
+    - read the [blogs]{"entity": "content_type"}
+    - read [documentation]{"entity": "content_type"}
+
+- intent: video
+  examples: |
+    - I want to read the [video]{"entity": "content_type"}
+    - [Video content]{"entity": "content_type"}
+    - watch the [video]{"entity": "content_type"}
+    - view [video]{"entity": "content_type"}
+
+
+- intent: get_snow_actions
+  examples: |
+    - Create Service now incident with short description [Machine](sdec) and description [Machine](dec)
+    - Update incident [Machine](inc) with short description [Machine](sdec) and description [Machine](dec)
+    - Update incident [Machine](inc) with short description [Machine](sdec)
+    - Update incident [Machine](inc) with description [Machine](dec)
+    - Delete incident [Machine](inc)
+- lookup: sdec
+  examples: |
+    - VPN issue
+    - Hardware issue
+    - Error with cloud
+    - Hardware error
+    - Vera code error
+
+- lookup: dec
+  examples: |
+    - Subtotal has an issue with the
+    - VPN is not connected due to error
+    - Hardware is not accessble
+    - Cloud is not accessble
+    - Failed due to vera code error
+
+- lookup: inc
+  examples: |
+    - INC00001
+    - INC000001
+    - INC2330001
+    - INC0010036
+    - INC0010037
+    - INC0010048
+    - INC0010059
+    - INC0010045
+    - INC0010078
+    - INC0010090
+    
+
+
+
+
 # - intent: knowledge_question
 #   examples: |
 #     - Can you look this up: what is ?

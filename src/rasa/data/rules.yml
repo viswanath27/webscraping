@@ -46,3 +46,9 @@ rules:
   steps:
   - intent: get_definition
   - action: definition_response
+
+
+- rule: Get courses recommendation
+  steps:
+  - intent: get_courses_recommendation
+  - action: courses_recommendation

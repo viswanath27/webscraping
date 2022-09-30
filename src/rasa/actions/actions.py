@@ -23,6 +23,20 @@ model_name = 'sshleifer/distilbart-cnn-12-6'
 tokenizer = BartTokenizer.from_pretrained(model_name)
 model = BartForConditionalGeneration.from_pretrained(model_name)
 
+import nltk
+import requests
+from bs4 import BeautifulSoup
+from fake_headers import Headers
+from newspaper import Article
+from nltk.tokenize import sent_tokenize
+from summa.summarizer import summarize
+from transformers import pipeline
+
+nltk.download("punkt")
+
+
+#from udemyscraper import UdemyCourse
+
 DATA_BASE_NAME = "fin_data.db"
 TABLE_NAME = "word_definition"
 EXTRACT_FIELD = "Word_definition"
@@ -49,12 +63,14 @@ class ServiceNowActions(Action):
         r = requests.get(f"https://dev120493.service-now.com/api/now/table/incident?\
             short_description={shor_descrpition}&description={description}", auth=("admin", "m9*toMLZ^w9M"))
         print("First Instance number")
-        print(r.json()['result'][0]['number'])
-        if r.json():
-            return (r.json()['result'][0]['number'])
-        else:
-            return("Incident not created successfully")
-
+        print(r.json())
+        try:
+            if r.json():
+                return (r.json()['result'][0]['number'])
+            else:
+                return("Unable to create Incident")
+        except Exception as e:
+            return("Unable to create Incident")
     # def retrieve_record():
     #     c = pysnow.Client(instance='dev120493', user='admin', password='m9*toMLZ^w9M')
     #     incident = c.resource(api_path='/table/incident')
@@ -111,7 +127,7 @@ class ServiceNowActions(Action):
         if 'create' in input_text.lower():
             if short_description or description:
                 inc_number = self.create_record(short_description, description)
-                dispatcher.utter_message(text=str(inc_number))
+                dispatcher.utter_message(text='Created a help desk ticket for you here is the ticket number\n Ticket Number :'+str(inc_number))
             else:
                 dispatcher.utter_message(text='No information to create incident')
 
@@ -141,8 +157,7 @@ class ServiceNowActions(Action):
 
 
         else:
-            dispatcher.utter_message(text='please mention one of the following operations\n1.Create, 2.Update, 3.Delete')
-
+            dispatcher.utter_message(text='please mention one of the following operations in your query\n1.Create, \n2.Update, \n3.Delete')
         return []
 
 
@@ -183,26 +198,120 @@ class FinanceDomain(Action):
     def name(self) -> Text:
         return "financedomain_response"
 
+    def get_news(self, stock, n_results):
+        header_gen = Headers(headers=True)
+        headers = header_gen.generate()
+        params = {"q": stock + " stock news"}
+        response = requests.get(
+            "https://news.google.com/search", headers=headers, params=params
+        )
+        soup = BeautifulSoup(response.text, "lxml")
+        url_elems = soup.find_all(class_="VDXfz")
+        urls = []
+        for elem in url_elems:
+            urls.append("https://news.google.com" + elem["href"][1:])
+        articles = []
+        total_results = 0
+        for url in urls:
+            if total_results == n_results:
+                break
+            try:
+                article = Article(url)
+                article.download()
+                article.parse()
+                article = article.text
+                if len(article.split()) > 50:
+                    articles.append(article)
+                    total_results += 1
+            except:
+                continue
+        return articles
+
+    def gen_corpus(self, articles, stock, length):
+        raw_corpus = ""
+        for article in articles:
+            article_sent = sent_tokenize(article)
+            for sent in article_sent:
+                if len(sent.split()) > 5 and stock.lower() in sent.lower():
+                    raw_corpus += sent
+        corpus = summarize(raw_corpus, words=length)
+        return corpus
+
+
+    def gen_summary(self, corpus, length):
+        summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+        min_length = int(0.8 * length)
+        max_length = int(1.2 * length)
+        raw_summary = summarizer(
+            corpus[:1024], min_length=min_length, max_length=max_length
+        )[0]["summary_text"]
+        summary_sent = sent_tokenize(raw_summary)
+        summary = ""
+        for sent in summary_sent:
+            summary += f"-{sent}\n"
+        return summary
+
+
+    def gen_sentiment(self, corpus):
+        analyzer = pipeline("sentiment-analysis", model="ProsusAI/finbert")
+        raw_sentiment = analyzer(corpus[:512], return_all_scores=True)
+        sentiment = {}
+        for sentiment_dict in raw_sentiment[0]:
+            label = sentiment_dict["label"]
+            value = sentiment_dict["score"]
+            if label == "positive":
+                label = "bull"
+            elif label == "negative":
+                label = "bear"
+            else:
+                label = "neutral"
+            sentiment[label] = value
+        return sentiment
+
+    def gen_report(self, stock, length):
+        news = self.get_news(stock, length / 5)
+        corpus = self.gen_corpus(news, stock, length * 5)
+        summary = self.gen_summary(corpus, length)
+        sentiment = self.gen_sentiment(corpus)
+        return summary, sentiment
+
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("This is executing run function")
         print("Here for stock price")
         asserts = next(tracker.get_latest_entity_values("asserts"), None)
+        input_text = tracker.latest_message["text"]
         #print(f"NLP word definition:{asserts}")
         print(asserts)
-        if not asserts:
-            msg = f"Could not get required details"
-            dispatcher.utter_message(text=msg)
+        if 'trend' in input_text.lower():
+            try:
+                print('came to try')
+                dispatcher.utter_message(text='Analysing...., Please wait')
+                summary, sentiment = self.gen_report(asserts, 100)
+                dispatcher.utter_message(text='Here is the summary I have brought you from my analysis:\n'+str(summary)+'\nand also here is my intution over market trend:\n'+str(max(sentiment, key=sentiment.get)))
+            except Exception as e:
+                print('came to except')
+                dispatcher.utter_message(text='Unable to get you summary for this stock, try with any other stock\n'+ e)
             return []
-        data = yf.Ticker(asserts.upper())
-        current_price = data.info['currentPrice']
-        #print(data.info['currentPrice'])
+        else:
+            try:
+                data = yf.Ticker(asserts.upper())
+            except Exception as e:
+                dispatcher.utter_message(text='Unable to get you summary for this stock, try with any other stock')
+                return []
+            if 'currentPrice' in data.info.keys():
+                current_price = data.info['currentPrice']
+            elif 'navPrice' in data.info.keys():
+                current_price = data.info['navPrice']
+            else:
+                dispatcher.utter_message(text='Unable to get you summary for this stock, try with any other stock')
+                return []
 
         if current_price:
             dispatcher.utter_message(text='Current price of '+ asserts +' is '+str(current_price))
         else:
-            dispatcher.utter_message(text="Could not get current price ")
+            dispatcher.utter_message(text='Unable to get you summary for this stock, try with any other stock')
         return []
 
 
@@ -293,6 +402,37 @@ class Summarization(Action):
         else:
             dispatcher.utter_message(text="Could not get summarized text")
         return []
+
+class CoursesRecommendation(Action):
+
+    def name(self) -> Text:
+        return "courses_recommendation"
+
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("This is executing run function")
+        #print("Here for stock price")
+        domain = next(tracker.get_latest_entity_values("domain"), None)
+        #input_text = tracker.latest_message["text"]
+        #print(f"NLP word definition:{asserts}")
+        
+        try:
+            course = UdemyCourse()
+            course.fetch_course(domain)
+        except Exception as e:
+            dispatcher.utter_message(text="Could not get required details")
+            return []
+
+        if not course.title:
+            msg = f"Could not get required details"
+            dispatcher.utter_message(text=msg)
+            return []
+        else:
+            dispatcher.utter_message(text='Here is a recommendation for you from udemy :\n'+course.title)
+        return []
+
 
 class ActionCarousel(Action):
 
