@@ -1,9 +1,14 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, jsonify
 import requests
 import json
+import time
+import os
 app = Flask(__name__, template_folder= 'templates')
 context_set = ""
 
+
+UPLOAD_PATH = '/home/ubuntu/STT_Hackathon/webscraping'
+ALLOWED_ENTENSIONS = ['pdf','png','jpg','jpeg']
 # @app.route('/', methods = ['POST', 'GET'])
 # def index():
 #   # if request.method == 'GET':
@@ -17,6 +22,21 @@ context_set = ""
 @app.route('/') 
 def index():
   return render_template('main_page.html')
+
+
+@app.route('/upload_image', methods=['POST']) 
+def upload_image():
+  data = request.files['image']
+  target = os.path.join(UPLOAD_PATH,'document_extraction_data')
+  if not os.path.isdir(target):
+    os.mkdir(target)
+  if data:
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    timestr = timestr+'.jpg'
+    data.save(os.path.join(target, timestr))
+  else:
+    return jsonify({'error':'Unable to upload file'})
+  
 
 
 @app.route('/page2')
