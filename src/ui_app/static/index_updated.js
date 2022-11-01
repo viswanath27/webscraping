@@ -23763,15 +23763,31 @@
 				className: "rw-upload",
 				style: {paddingLeft: 10, paddingRight: 10},
 				onClick: function(e) {
+					try { document.getElementById("attachme-file").remove; } catch(e) {}
 					let input = document.createElement('input');
 					input.type = 'file';
+					input.id = 'attachme-file';
+					input.accept="image/*";
 					input.onchange = _ => {
 						// you can use this method to get file and perform respective operations
-								let files =   Array.from(input.files);
+								let files =   Array.from(e.target.files);
 								console.log(files);
 								let formData = new FormData();
-									files.forEach((file) => {
+								files.forEach((file) => {
   									formData.append("file", file);
+								});
+								formData.append("output_encoding","json")
+								let options = {
+									method: 'POST',
+									body: formData,
+								};
+								fetch(" http://127.0.0.1:5000//upload_image", options)
+									.then((response) => response.json())
+									.then((json) => {
+										console.log("JSON response from Upload File:", json);
+									})
+								.catch((e) => {
+									console.log("file upload error : ",e);
 								});
 								fs.writeFile("./uploads/image.png", file[0].buffer, (err) => {
 									console.error(error)
