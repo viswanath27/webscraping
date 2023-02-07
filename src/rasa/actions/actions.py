@@ -451,7 +451,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Finance Q&A",
                         "subtitle" : "Service 1",
-                        "image_url" : "https://lh4.googleusercontent.com/ejtOj2bNy0vgoRimwNAd3P50jzo_cuwQfgo7ay68NABYpfFPKgJBUH0pqByfwzvkhqg=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/faq.png",
                         "buttons" : [
                             {
                             "title" : "Ask question",
@@ -463,7 +463,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Summarization",
                         "subtitle" : "Service 2",
-                        "image_url" : "https://lh5.googleusercontent.com/qBi-XBzUXWT4uEOnnX97HgvtcLmROlc38icwhICcrj79rz3utuz29tR8RLWkU-1p7X8=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/summarize.jpeg",
                         "buttons" : [
                             {
                             "title" : "Summarize",
@@ -475,7 +475,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Service Now ticketing",
                         "subtitle" : "Service 3",
-                        "image_url" : "https://lh6.googleusercontent.com/4qeSfw5pb2B6VKmY4iARnLD-p6gHktzeAUTSY_kgfrdnktYt6l0enKoifV_7R2UuyXM=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/service_now.png",
                         "buttons" : [
                             {
                             "title" : "Raise a ticket",
@@ -487,7 +487,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Document extraction",
                         "subtitle" : "Service 4",
-                        "image_url" : "https://lh6.googleusercontent.com/1N_yMztdf--ueR8xtH-OzHLHrCEt0qFZfrYirpujv3PhsugqXcd2EPIKZ5u2tN3wEqQ=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/document_extraction.png",
                         "buttons" : [
                             {
                             "title" : "Extract",
@@ -499,7 +499,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Stocks Market",
                         "subtitle" : "Service 4",
-                        "image_url" : "https://lh6.googleusercontent.com/ENifr3AaHm2py1xsLqS069BxH-zAWjRQNcm-AqpoVtOfPpUEMPgHc7qpG7KAv-PyGIA=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/stock_trend.png",
                         "buttons" : [
                             {
                             "title" : "Get stock details",
@@ -511,7 +511,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Courses Recomendation",
                         "subtitle" : "Service 4",
-                        "image_url" : "https://lh5.googleusercontent.com/qBi-XBzUXWT4uEOnnX97HgvtcLmROlc38icwhICcrj79rz3utuz29tR8RLWkU-1p7X8=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/course_recommendation.png",
                         "buttons" : [
                             {
                             "title" : "Recomend me courses",
