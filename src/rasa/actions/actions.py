@@ -44,7 +44,7 @@ KEY_WORD = "Word"
 
 from docquery import document, pipeline
 p = pipeline('document-question-answering')
-doc = document.load_document("invoice.png")
+doc = document.load_document("/home/ubuntu/STT_Hackathon/webscraping/src/question_answering/invoice.png")
 
 class ServiceNowActions(Action):
 
