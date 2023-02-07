@@ -776,10 +776,10 @@ nlu:
 - intent: get_snow_actions
   examples: |
     - Create Service now incident with short description [Machine](sdec) and description [Machine](dec)
-    - Update incident [Machine](inc) with short description [Machine](sdec) and description [Machine](dec)
-    - Update incident [Machine](inc) with short description [Machine](sdec)
-    - Update incident [Machine](inc) with description [Machine](dec)
-    - Delete incident [Machine](inc)
+    - Update incident [INC00001](inc) with short description [Machine](sdec) and description [Machine](dec)
+    - Update incident [INC00001](inc) with short description [Machine](sdec)
+    - Update incident [INC00001](inc) with description [Machine](dec)
+    - Delete incident [INC00001](inc)
 - lookup: sdec
   examples: |
     - VPN issue

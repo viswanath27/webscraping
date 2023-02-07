@@ -41,10 +41,13 @@ DATA_BASE_NAME = "fin_data.db"
 TABLE_NAME = "word_definition"
 EXTRACT_FIELD = "Word_definition"
 KEY_WORD = "Word"
+INSTANCE_ID = "dev78902"
+USER = "admin"
+PASSWORD = "TR*Yd8qqR$5r"
 
 from docquery import document, pipeline
 p = pipeline('document-question-answering')
-doc = document.load_document("/home/ubuntu/STT_Hackathon/webscraping/src/question_answering/invoice.png")
+doc = document.load_document(os.path.join(os.getcwd(), "..","question_answering","invoice.png"))
 
 class ServiceNowActions(Action):
 
@@ -53,20 +56,23 @@ class ServiceNowActions(Action):
     
 
     def create_record(self, shor_descrpition, description):
-        c = pysnow.Client(instance='dev120493', user='admin', password='m9*toMLZ^w9M')
+        print("INto Create record")
+        c = pysnow.Client(instance=INSTANCE_ID, user=USER, password=PASSWORD)
         incident = c.resource(api_path='/table/incident')
         new_record = {
             'short_description': shor_descrpition,
             'description': description
         }
         result = incident.create(payload=new_record)
-        r = requests.get(f"https://dev120493.service-now.com/api/now/table/incident?\
-            short_description={shor_descrpition}&description={description}", auth=("admin", "m9*toMLZ^w9M"))
+        r = requests.post(f"https://dev78902.service-now.com/api/now/table/incident?\
+            short_description={shor_descrpition}&description={description}", auth=(USER, PASSWORD))
+        print(r)
         print("First Instance number")
         print(r.json())
         try:
             if r.json():
-                return (r.json()['result'][0]['number'])
+                #print(f"r.json:{r.json()['result'][0]}")
+                return (r.json()['result'][f'number'])
             else:
                 return("Unable to create Incident")
         except Exception as e:
@@ -80,7 +86,7 @@ class ServiceNowActions(Action):
     #         print(record['task_effective_number'])
 
     def retrieve_first_record():
-        c = pysnow.Client(instance='dev120493', user='admin', password='m9*toMLZ^w9M')
+        c = pysnow.Client(instance=INSTANCE_ID, user=USER, password=PASSWORD)
         incident = c.resource(api_path='/table/incident')
         response = incident.get(query={'state': 3}, stream=True)
         print("First Response")
@@ -88,7 +94,7 @@ class ServiceNowActions(Action):
 
     def update_record(self, update, incident_number):
         # Create client object
-        c = pysnow.Client(instance='dev120493', user='admin', password='m9*toMLZ^w9M')
+        c = pysnow.Client(instance=INSTANCE_ID, user=USER, password=PASSWORD)
         # Define a resource, here we'll use the incident table API
         incident = c.resource(api_path='/table/incident')
         # Update 'short_description' and 'state' for 'INC0010019'
@@ -99,7 +105,7 @@ class ServiceNowActions(Action):
             return('Update was not succesfull because of the following error \n'+str(e))
 
     def delete_record(self, incident_number):
-        c = pysnow.Client(instance='dev120493', user='admin', password='m9*toMLZ^w9M')
+        c = pysnow.Client(instance=INSTANCE_ID, user=USER, password=PASSWORD)
         # Define a resource, here we'll use the incident table API
         incident = c.resource(api_path='/table/incident')
 
@@ -125,6 +131,7 @@ class ServiceNowActions(Action):
 
         print(input_text)
         if 'create' in input_text.lower():
+            print('came to create the record -------------------')
             if short_description or description:
                 inc_number = self.create_record(short_description, description)
                 dispatcher.utter_message(text='Created a help desk ticket for you here is the ticket number\n Ticket Number :'+str(inc_number))
@@ -133,6 +140,7 @@ class ServiceNowActions(Action):
 
 
         elif 'update' in input_text.lower():
+            print('came to update the record -------------------')
             if incident_number:
                 update = {}
                 if short_description:
@@ -149,11 +157,13 @@ class ServiceNowActions(Action):
 
         
         elif 'delete' in input_text.lower():
+            print('came to delete the record -------------------')
+            print(incident_number,'-------**')
             if incident_number:
                 result = self.delete_record(incident_number)
                 dispatcher.utter_message(text=result)
             else:
-                dispatcher.utter_message(text='Update of incident is not succesful because incident number is not mentioned')
+                dispatcher.utter_message(text='Delete of incident is not succesful because incident number is not mentioned')
 
 
         else:
@@ -451,7 +461,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Finance Q&A",
                         "subtitle" : "Service 1",
-                        "image_url" : "https://lh4.googleusercontent.com/ejtOj2bNy0vgoRimwNAd3P50jzo_cuwQfgo7ay68NABYpfFPKgJBUH0pqByfwzvkhqg=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/faq.png",
                         "buttons" : [
                             {
                             "title" : "Ask question",
@@ -463,7 +473,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Summarization",
                         "subtitle" : "Service 2",
-                        "image_url" : "https://lh5.googleusercontent.com/qBi-XBzUXWT4uEOnnX97HgvtcLmROlc38icwhICcrj79rz3utuz29tR8RLWkU-1p7X8=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/summarize.jpeg",
                         "buttons" : [
                             {
                             "title" : "Summarize",
@@ -475,7 +485,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Service Now ticketing",
                         "subtitle" : "Service 3",
-                        "image_url" : "https://lh6.googleusercontent.com/4qeSfw5pb2B6VKmY4iARnLD-p6gHktzeAUTSY_kgfrdnktYt6l0enKoifV_7R2UuyXM=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/service_now.png",
                         "buttons" : [
                             {
                             "title" : "Raise a ticket",
@@ -487,7 +497,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Document extraction",
                         "subtitle" : "Service 4",
-                        "image_url" : "https://lh6.googleusercontent.com/1N_yMztdf--ueR8xtH-OzHLHrCEt0qFZfrYirpujv3PhsugqXcd2EPIKZ5u2tN3wEqQ=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/document_extraction.png",
                         "buttons" : [
                             {
                             "title" : "Extract",
@@ -499,7 +509,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Stocks Market",
                         "subtitle" : "Service 4",
-                        "image_url" : "https://lh6.googleusercontent.com/ENifr3AaHm2py1xsLqS069BxH-zAWjRQNcm-AqpoVtOfPpUEMPgHc7qpG7KAv-PyGIA=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/stock_trend.png",
                         "buttons" : [
                             {
                             "title" : "Get stock details",
@@ -511,7 +521,7 @@ class ActionCarousel(Action):
                     {
                         "title" : "Courses Recomendation",
                         "subtitle" : "Service 4",
-                        "image_url" : "https://lh5.googleusercontent.com/qBi-XBzUXWT4uEOnnX97HgvtcLmROlc38icwhICcrj79rz3utuz29tR8RLWkU-1p7X8=w2400",
+                        "image_url" : "https://dodostorageacc.blob.core.windows.net/dodo/course_recommendation.png",
                         "buttons" : [
                             {
                             "title" : "Recomend me courses",
