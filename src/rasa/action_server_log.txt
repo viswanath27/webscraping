@@ -1,0 +1,132 @@
+2022-12-23 13:59:01 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2022-12-23 13:59:08 INFO     summa.preprocessing.cleaner  - 'pattern' package not found; tag filters are not available for English
+[nltk_data] Downloading package punkt to /Users/csot/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+document-question-answering is already registered. Overwriting pipeline for task document-question-answering...
+image-classification is already registered. Overwriting pipeline for task image-classification...
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'snow_actions'.
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'documentdetails_response'.
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'financedomain_response'.
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'definition_response'.
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'summarization'.
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'courses_recommendation'.
+2022-12-23 13:59:20 INFO     rasa_sdk.executor  - Registered function for 'action_carousel'.
+2022-12-23 13:59:20 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http://0.0.0.0:5055
+2022-12-26 18:30:19 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2022-12-26 18:30:30 INFO     summa.preprocessing.cleaner  - 'pattern' package not found; tag filters are not available for English
+[nltk_data] Downloading package punkt to /Users/csot/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+document-question-answering is already registered. Overwriting pipeline for task document-question-answering...
+image-classification is already registered. Overwriting pipeline for task image-classification...
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'snow_actions'.
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'documentdetails_response'.
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'financedomain_response'.
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'definition_response'.
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'summarization'.
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'courses_recommendation'.
+2022-12-26 18:30:42 INFO     rasa_sdk.executor  - Registered function for 'action_carousel'.
+2022-12-26 18:30:42 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http://0.0.0.0:5055
+2022-12-26 18:41:38 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2022-12-26 18:41:48 INFO     summa.preprocessing.cleaner  - 'pattern' package not found; tag filters are not available for English
+[nltk_data] Downloading package punkt to /Users/csot/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+document-question-answering is already registered. Overwriting pipeline for task document-question-answering...
+image-classification is already registered. Overwriting pipeline for task image-classification...
+2022-12-26 18:44:03 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2022-12-26 18:44:13 INFO     summa.preprocessing.cleaner  - 'pattern' package not found; tag filters are not available for English
+[nltk_data] Downloading package punkt to /Users/csot/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+document-question-answering is already registered. Overwriting pipeline for task document-question-answering...
+image-classification is already registered. Overwriting pipeline for task image-classification...
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'snow_actions'.
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'documentdetails_response'.
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'financedomain_response'.
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'definition_response'.
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'summarization'.
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'courses_recommendation'.
+2022-12-26 18:44:26 INFO     rasa_sdk.executor  - Registered function for 'action_carousel'.
+2022-12-26 18:44:26 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http://0.0.0.0:5055
+2022-12-26 18:45:59 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2022-12-26 18:46:09 INFO     summa.preprocessing.cleaner  - 'pattern' package not found; tag filters are not available for English
+[nltk_data] Downloading package punkt to /Users/csot/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+document-question-answering is already registered. Overwriting pipeline for task document-question-answering...
+image-classification is already registered. Overwriting pipeline for task image-classification...
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'snow_actions'.
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'documentdetails_response'.
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'financedomain_response'.
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'definition_response'.
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'summarization'.
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'courses_recommendation'.
+2022-12-26 18:46:22 INFO     rasa_sdk.executor  - Registered function for 'action_carousel'.
+2022-12-26 18:46:22 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http://0.0.0.0:5055
+2023-01-09 09:41:14 ERROR    rasa_sdk.endpoint  - Exception occurred during execution of request <Request: POST /webhook>
+Traceback (most recent call last):
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/requests/models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "handle_request", line 83, in handle_request
+    )
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/rasa_sdk/endpoint.py", line 104, in webhook
+    result = await executor.run(action_call)
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/rasa_sdk/executor.py", line 398, in run
+    action(dispatcher, tracker, domain)
+  File "/Users/csot/webscraping/src/rasa/actions/actions.py", line 129, in run
+    print(input_text)
+  File "/Users/csot/webscraping/src/rasa/actions/actions.py", line 66, in create_record
+    r = requests.get(f"https://dev120493.service-now.com/api/now/table/incident?\
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/requests/models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2023-01-09 09:43:00 ERROR    rasa_sdk.endpoint  - Exception occurred during execution of request <Request: POST /webhook>
+Traceback (most recent call last):
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/requests/models.py", line 971, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "handle_request", line 83, in handle_request
+    )
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/rasa_sdk/endpoint.py", line 104, in webhook
+    result = await executor.run(action_call)
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/rasa_sdk/executor.py", line 398, in run
+    action(dispatcher, tracker, domain)
+  File "/Users/csot/webscraping/src/rasa/actions/actions.py", line 129, in run
+    print(input_text)
+  File "/Users/csot/webscraping/src/rasa/actions/actions.py", line 66, in create_record
+    r = requests.get(f"https://dev120493.service-now.com/api/now/table/incident?\
+  File "/Users/csot/opt/anaconda3/envs/rasa_env/lib/python3.8/site-packages/requests/models.py", line 975, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2023-01-25 11:41:14 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2023-01-25 11:41:34 INFO     summa.preprocessing.cleaner  - 'pattern' package not found; tag filters are not available for English
+[nltk_data] Error loading punkt: <urlopen error [Errno 54] Connection
+[nltk_data]     reset by peer>
+document-question-answering is already registered. Overwriting pipeline for task document-question-answering...
+image-classification is already registered. Overwriting pipeline for task image-classification...
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'snow_actions'.
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'documentdetails_response'.
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'financedomain_response'.
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'definition_response'.
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'summarization'.
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'courses_recommendation'.
+2023-01-25 11:43:38 INFO     rasa_sdk.executor  - Registered function for 'action_carousel'.
+2023-01-25 11:43:38 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http://0.0.0.0:5055
